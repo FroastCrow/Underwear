@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <title>Debug Test</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="css/style.css" rel="stylesheet">
+    <script src="js/jquery.min.js"></script>
+</head>
+<body>
+    <div class="wrapper">
+        <button type="button" id="openSlider" class="test-btn">
+            Відкрити галерею
+        </button>
+        <button type="button" id="debugBtn" class="test-btn" style="background: #4B4B4B;">
+            Debug: Показати список фотографій
+        </button>
+    </div>
+
+    <!-- Перший попап з галереєю -->
+    <section class="popupWrapper" id="popup">
+        <div class="popupInner" id="closeField">
+            <div class="sliderPopup">
+                <div class="closePopup" id="closePopup">
+                    <div class="unitbox"></div>
+                    <div class="unitbox"></div>
+                </div>
+                <div class="sellerInfo">
+                    <div class="userPic">
+                        <img src="img/user-pic.webp" alt="user-picture">
+                    </div>
+                    <div class="sellerBlock">
+                        <div class="status">
+                            <img class="premium" src="img/ico-premium.svg" alt="">
+                            <div class="text">PREMIUM SELLER</div>
+                        </div>
+                        <div class="name">
+                            Babyxghoul
+                        </div>
+                    </div>
+                </div>
+                <div class="sliderWrapper">
+                    <div class="swiper" id="swiper-slider">
+                        <div class="swiper-wrapper">
+                            <div class="swiper-slide">
+                                <div class="imgContainer">
+                                    <img src="img/slide-img-1.jpg" alt="slider-image">
+                                </div>
+                            </div>
+                            <div class="swiper-slide">
+                                <div class="imgContainer">
+                                    <img src="img/slide-img-2.jpg" alt="slider-image">
+                                </div>
+                            </div>
+                            <div class="swiper-slide">
+                                <div class="imgContainer">
+                                    <img src="img/slide-img-3.jpg" alt="slider-image">
+                                </div>
+                            </div>
+                            <div class="swiper-slide">
+                                <div class="imgContainer">
+                                    <img src="img/slide-img-4.jpg" alt="slider-image">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="swiperBtnNext" class="swiper-button-next"></div>
+                    <div id="swiperBtnPrev" class="swiper-button-prev"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Другий попап з окремою фотографією -->
+    <section class="imagePopupWrapper" id="imagePopup">
+        <div class="imagePopupInner" id="closeImageField">
+            <div class="imagePopupContent">
+                <div class="closeImagePopup" id="closeImagePopup">
+                    <div class="unitbox"></div>
+                    <div class="unitbox"></div>
+                </div>
+                <div class="imageContainer">
+                    <img src="img/slide-img-1.jpg" alt="Full size image" id="fullSizeImage">
+                </div>
+                <div class="imageNavigation">
+                    <button type="button" class="imageNavBtn" id="prevImageBtn">
+                        <img src="img/icon_arrow_left.svg" alt="Previous">
+                    </button>
+                    <button type="button" class="imageNavBtn" id="nextImageBtn">
+                        <img src="img/icon_arrow_right.svg" alt="Next">
+                    </button>
+                </div>
+                <div class="imageCounter">
+                    <span id="currentImageNum">1</span> / <span id="totalImages">4</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Додаємо debug кнопку
+        $(document).ready(function() {
+            $("#debugBtn").on("click", function() {
+                console.log("=== DEBUG INFO ===");
+                console.log("Кількість .imgContainer:", $(".imgContainer").length);
+                console.log("Кількість .imgContainer img:", $(".imgContainer img").length);
+                console.log("Кількість #popup .imgContainer img:", $("#popup .imgContainer img").length);
+                console.log("Кількість .swiper-slide .imgContainer img:", $(".swiper-slide .imgContainer img").length);
+                
+                $(".imgContainer img").each(function(index) {
+                    console.log(`Фотографія ${index + 1}:`, $(this).attr("src"));
+                });
+                
+                if (typeof window.updateImageList === 'function') {
+                    window.updateImageList();
+                    console.log("Список оновлено");
+                } else {
+                    console.log("Функція updateImageList не знайдена");
+                }
+            });
+        });
+    </script>
+
+    <script src="js/main.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+</body>
+</html>
